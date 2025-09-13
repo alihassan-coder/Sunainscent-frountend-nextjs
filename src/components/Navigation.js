@@ -37,6 +37,18 @@ const Navigation = () => {
             >
               Shop
             </Link>
+            <Link
+              href="/contact"
+              className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+            >
+              Contact Us
+            </Link>
+            <Link
+              href="/policies"
+              className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+            >
+              Policies
+            </Link>
             
             {isAuthenticated ? (
               <div className="flex items-center space-x-4">
@@ -110,6 +122,20 @@ const Navigation = () => {
               onClick={() => setIsOpen(false)}
             >
               Shop
+            </Link>
+            <Link
+              href="/contact"
+              className="text-gray-600 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
+              onClick={() => setIsOpen(false)}
+            >
+              Contact Us
+            </Link>
+            <Link
+              href="/policies"
+              className="text-gray-600 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
+              onClick={() => setIsOpen(false)}
+            >
+              Policies
             </Link>
             
             {isAuthenticated ? (

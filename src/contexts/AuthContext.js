@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     const initAuth = async () => {
@@ -27,10 +28,12 @@ export const AuthProvider = ({ children }) => {
         try {
           const response = await authAPI.getProfile();
           setUser(response.data);
+          setIsAdmin(response.data.is_admin || false);
         } catch (error) {
           // Token is invalid, remove it
           Cookies.remove('access_token');
           setToken(null);
+          setIsAdmin(false);
         }
       }
       setLoading(false);
@@ -51,6 +54,7 @@ export const AuthProvider = ({ children }) => {
       // Get user profile
       const profileResponse = await authAPI.getProfile();
       setUser(profileResponse.data);
+      setIsAdmin(profileResponse.data.is_admin || false);
       
       return { success: true };
     } catch (error) {
@@ -84,6 +88,7 @@ export const AuthProvider = ({ children }) => {
     Cookies.remove('access_token');
     setToken(null);
     setUser(null);
+    setIsAdmin(false);
   };
 
   const isAuthenticated = !!token && !!user;
@@ -93,6 +98,7 @@ export const AuthProvider = ({ children }) => {
     token,
     loading,
     isAuthenticated,
+    isAdmin,
     login,
     register,
     logout,

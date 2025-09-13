@@ -46,6 +46,15 @@ export const authAPI = {
   verifyToken: () => api.get('/auth/verify-token'),
 };
 
+// Admin API calls
+export const adminAPI = {
+  getDashboard: () => api.get('/admin/dashboard'),
+  verifyAdmin: () => api.get('/admin/verify'),
+  getProductStats: () => api.get('/admin/products/stats'),
+  getUserStats: () => api.get('/admin/users/stats'),
+  getAnalytics: () => api.get('/admin/analytics/summary'),
+};
+
 // Products API calls
 export const productsAPI = {
   getAllProducts: (params = {}) => api.get('/products', { params }),
