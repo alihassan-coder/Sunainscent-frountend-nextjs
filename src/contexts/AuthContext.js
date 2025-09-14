@@ -42,19 +42,31 @@ export const AuthProvider = ({ children }) => {
     initAuth();
   }, []);
 
-  const login = async (credentials) => {
+  const login = async (credentials, isAdminLogin = false) => {
     try {
-      const response = await authAPI.login(credentials);
+      const response = isAdminLogin 
+        ? await authAPI.adminLogin(credentials)
+        : await authAPI.login(credentials);
       const { access_token } = response.data;
       
       // Store token in cookie
       Cookies.set('access_token', access_token, { expires: 7 }); // 7 days
       setToken(access_token);
       
-      // Get user profile
-      const profileResponse = await authAPI.getProfile();
-      setUser(profileResponse.data);
-      setIsAdmin(profileResponse.data.is_admin || false);
+      if (isAdminLogin) {
+        // For admin login, set admin user data
+        setUser({
+          email: credentials.email,
+          first_name: 'Admin',
+          is_admin: true
+        });
+        setIsAdmin(true);
+      } else {
+        // Get user profile for regular login
+        const profileResponse = await authAPI.getProfile();
+        setUser(profileResponse.data);
+        setIsAdmin(profileResponse.data.is_admin || false);
+      }
       
       return { success: true };
     } catch (error) {

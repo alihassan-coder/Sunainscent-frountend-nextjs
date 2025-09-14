@@ -42,6 +42,7 @@ api.interceptors.response.use(
 export const authAPI = {
   register: (userData) => api.post('/auth/register', userData),
   login: (credentials) => api.post('/auth/login', credentials),
+  adminLogin: (credentials) => api.post('/auth/admin/login', credentials),
   getProfile: () => api.get('/auth/me'),
   verifyToken: () => api.get('/auth/verify-token'),
 };
@@ -53,6 +54,15 @@ export const adminAPI = {
   getProductStats: () => api.get('/admin/products/stats'),
   getUserStats: () => api.get('/admin/users/stats'),
   getAnalytics: () => api.get('/admin/analytics/summary'),
+  getOrders: (params = {}) => api.get('/orders', { params }),
+  updateOrderStatus: (orderId, status) => api.post(`/orders/${orderId}/update-status`, { new_status: status }),
+  updateOrder: (orderId, data) => api.put(`/orders/${orderId}`, data),
+  getContactMessages: (params = {}) => api.get('/contact/messages', { params }),
+  markMessageAsRead: (messageId) => api.post(`/contact/messages/${messageId}/mark-read`),
+  markAllMessagesAsRead: () => api.post('/contact/messages/mark-all-read'),
+  updateContactMessage: (messageId, data) => api.put(`/contact/messages/${messageId}`, data),
+  deleteContactMessage: (messageId) => api.delete(`/contact/messages/${messageId}`),
+  getUsers: (params = {}) => api.get('/admin/users', { params }),
 };
 
 // Products API calls

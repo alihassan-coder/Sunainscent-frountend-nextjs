@@ -124,7 +124,7 @@ Sunainscent/
    - Update `.env` file with your MongoDB Atlas connection string
    - Replace the placeholder values:
    ```env
-   MONGODB_URL=mongodb+srv://your_username:your_password@your_cluster.mongodb.net/sunainscent?retryWrites=true&w=majority
+   MONGODB_URL=your_url
    JWT_SECRET_KEY=your_super_secret_jwt_key_here_change_this_in_production
    JWT_ALGORITHM=HS256
    JWT_EXPIRATION_TIME=1440

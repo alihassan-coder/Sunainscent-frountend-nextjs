@@ -3,13 +3,15 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function AdminLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const router = useRouter();
+  const { logout } = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem('admin_token');
+    logout();
     router.push('/admin/login');
   };
 
@@ -17,7 +19,7 @@ export default function AdminLayout({ children }) {
     { name: 'Dashboard', href: '/admin/dashboard', icon: 'home', current: true },
     { name: 'Products', href: '/admin/products', icon: 'cube', current: false },
     { name: 'Orders', href: '/admin/orders', icon: 'shopping-bag', current: false },
-    { name: 'Contact Messages', href: '/admin/contact', icon: 'mail', current: false },
+    { name: 'Contact Messages', href: '/admin/contacts', icon: 'mail', current: false },
     { name: 'Users', href: '/admin/users', icon: 'users', current: false },
     { name: 'Analytics', href: '/admin/analytics', icon: 'chart-bar', current: false },
   ];
